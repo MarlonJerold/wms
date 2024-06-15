@@ -1,37 +1,17 @@
-package com.wms.wms.models;
-
-import jakarta.persistence.*;
+package com.wms.wms.models.dto;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+public class ProductResposeDTO {
 
-@Entity(name = "product")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(name = "product_name")
     private String name;
     private int quantity;
-    @Column(name = "self_id")
     private String shelfId;
-
     private LocalDate createDate;
     private LocalDate updateDate;
 
-    public Product(UUID id, String name, int quantity, String shelfId, LocalDate createDate, LocalDate updateDate) {
-        this.id = id;
-        this.name = name;
-        this.quantity = quantity;
-        this.shelfId = shelfId;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-    }
-
-    public Product() {}
+    private UUID id;
 
     public UUID id() {
         return id;
@@ -64,6 +44,7 @@ public class Product {
     public void setShelfId(String shelfId) {
         this.shelfId = shelfId;
     }
+
     public LocalDate createDate() {
         return createDate;
     }
@@ -79,4 +60,7 @@ public class Product {
     public void setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
     }
+
 }
+
+
