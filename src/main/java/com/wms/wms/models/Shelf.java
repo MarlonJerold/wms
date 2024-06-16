@@ -14,8 +14,8 @@ public class Shelf {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name="section_name")
-    private String sectionName;
+    @Column(name="shelf_name")
+    private String shelfName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
@@ -24,11 +24,37 @@ public class Shelf {
     @OneToMany(mappedBy = "shelf", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
 
-    public Shelf(UUID id, String sectionName, Section section) {
+    public Shelf(UUID id, String shelfName, Section section) {
         this.id = id;
-        this.sectionName = sectionName;
+        this.shelfName = shelfName;
         this.products = new ArrayList<>();
         this.section = section;
+    }
+
+    public Shelf(){}
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getShelfName() {
+        return shelfName;
+    }
+
+    public void setShelfName(String shelfName) {
+        this.shelfName = shelfName;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public void addProduct(Product product) {

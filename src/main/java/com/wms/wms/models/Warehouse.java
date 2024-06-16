@@ -21,6 +21,8 @@ public class Warehouse {
     @OneToMany(mappedBy = "warehouse", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Section> sections;
 
+    public Warehouse() {}
+
     public Warehouse(UUID id, String name, String location) {
         this.id = id;
         this.name = name;

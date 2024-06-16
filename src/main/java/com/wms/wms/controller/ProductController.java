@@ -1,10 +1,10 @@
 package com.wms.wms.controller;
 
 
-import com.wms.wms.models.Inventory;
 import com.wms.wms.models.dto.ProductRequestDTO;
 import com.wms.wms.models.dto.ProductResposeDTO;
-import com.wms.wms.services.ProductService;
+import com.wms.wms.services.interfaces.ProductServiceInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +14,8 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductService service;
-
-    public ProductController(ProductService service) {
-        this.service = service;
-    }
+    @Autowired(required = false)
+    private ProductServiceInterface service;
 
     @GetMapping
     private ResponseEntity<List<ProductResposeDTO>> getAll() {

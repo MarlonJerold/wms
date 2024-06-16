@@ -1,11 +1,11 @@
 package com.wms.wms.controller;
 
 import com.wms.wms.models.Warehouse;
-import com.wms.wms.services.WarehouseService;
+import com.wms.wms.models.dto.WarehouseRequestDTO;
+import com.wms.wms.services.interfaces.WarehouseInterface;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,15 +13,17 @@ import java.util.List;
 @RequestMapping("warehouse")
 public class WarehouseController {
 
-    private final WarehouseService service;
-
-    public WarehouseController(WarehouseService service) {
-        this.service = service;
-    }
+    @Autowired(required = false)
+    private WarehouseInterface service;
 
     @GetMapping
     public ResponseEntity<List<Warehouse>> getAll() {
         return ResponseEntity.ok(service.getAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<WarehouseRequestDTO> createWarehouse(@RequestBody WarehouseRequestDTO dto) {
+        return ResponseEntity.ok(service.createWarehouse(dto));
     }
 
 }

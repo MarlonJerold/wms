@@ -30,7 +30,38 @@ public class Section {
         this.shelves = new ArrayList<>();
     }
 
-    public void addShelf(Shelf shelf) {
-        shelves.add(shelf);
+    public Section(){}
+
+    public UUID getId() {
+        return id;
     }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Shelf> getShelves() {
+        return shelves;
+    }
+
+    public void setShelves(List<Shelf> shelves) {
+        this.shelves = shelves;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
 }
