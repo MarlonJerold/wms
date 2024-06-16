@@ -1,4 +1,7 @@
 package com.wms.wms.models.dto;
 
-public record ProductRequestDTO(String name, int quantity, String shelfId) {
-}
+import com.wms.wms.models.Shelf;
+
+public record ProductRequestDTO(String name, int quantity, Shelf shelfId){
+
+};

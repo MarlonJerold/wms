@@ -4,11 +4,10 @@ import com.wms.wms.models.Product;
 import com.wms.wms.models.dto.ProductRequestDTO;
 import com.wms.wms.models.dto.ProductResposeDTO;
 import com.wms.wms.repository.ProductRepository;
-import org.hibernate.type.descriptor.DateTimeUtils;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,30 +26,35 @@ public class ProductService {
         List<ProductResposeDTO> productResposeDTOList = new ArrayList<>();
 
         for (Product product : productList) {
-
-            DateTimeFormatter formatter = DateTimeUtils.DATE_TIME_FORMATTER_DATE;
-            String createDateString = product.createDate().format(formatter);
-            String updateDateString = product.updateDate().format(formatter);
-
-            ModelMapper mapper = new ModelMapper();
-            ProductResposeDTO productResposeDTO = mapper.map(product, ProductResposeDTO.class);
+            ProductResposeDTO productResposeDTO = mapProductForDtoRespose(product);
             productResposeDTOList.add(productResposeDTO);
         }
-
         return productResposeDTOList;
     }
 
     public ProductResposeDTO createProduct(ProductRequestDTO dto) {
-
-        ModelMapper mapper = new ModelMapper();
-        Product product = mapper.map(dto, Product.class);
-
+        Product product = mapDtoForProduct(dto);
         Product productSave = repository.save(product);
-        ProductResposeDTO productResposeDTO = mapper.map(productSave, ProductResposeDTO.class);
-        return productResposeDTO;
+        return mapProductForDtoRespose(productSave);
     }
 
+    private Product mapDtoForProduct(ProductRequestDTO dto) {
+        Product product = new Product();
+        product.setName(dto.name());
+        product.setQuantity(dto.quantity());
+        product.setShelfId(dto.shelfId());
+        return product;
+    }
 
-
+    private ProductResposeDTO mapProductForDtoRespose(Product entity) {
+        return new ProductResposeDTO(
+                entity.id(),
+                entity.name(),
+                entity.quantity(),
+                entity.shelfId(),
+                entity.createDate(),
+                entity.updateDate()
+        );
+    }
 
 }

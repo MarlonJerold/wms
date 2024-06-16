@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
-
-@Entity(name = "product")
+@Table(name = "product")
+@Entity()
 public class Product {
 
     @Id
@@ -16,22 +16,29 @@ public class Product {
     @Column(name = "product_name")
     private String name;
     private int quantity;
-    @Column(name = "self_id")
-    private String shelfId;
 
+    @Column(name = "create_date")
     private LocalDate createDate;
+    @Column(name = "update_date")
     private LocalDate updateDate;
 
-    public Product(UUID id, String name, int quantity, String shelfId, LocalDate createDate, LocalDate updateDate) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shelf_id")
+    private Shelf shelf;
+
+    public Product(UUID id, String name, int quantity, Shelf shelf, LocalDate createDate, LocalDate updateDate) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
-        this.shelfId = shelfId;
+        this.shelf = shelf;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
 
     public Product() {}
+
+    public Product(String name, int quantity, String s) {
+    }
 
     public UUID id() {
         return id;
@@ -57,12 +64,12 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String shelfId() {
-        return shelfId;
+    public Shelf shelfId() {
+        return shelf;
     }
 
-    public void setShelfId(String shelfId) {
-        this.shelfId = shelfId;
+    public void setShelfId(Shelf shelf) {
+        this.shelf = shelf;
     }
     public LocalDate createDate() {
         return createDate;

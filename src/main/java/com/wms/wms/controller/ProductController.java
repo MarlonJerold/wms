@@ -1,6 +1,7 @@
 package com.wms.wms.controller;
 
 
+import com.wms.wms.models.Inventory;
 import com.wms.wms.models.dto.ProductRequestDTO;
 import com.wms.wms.models.dto.ProductResposeDTO;
 import com.wms.wms.services.ProductService;
@@ -29,5 +30,5 @@ public class ProductController {
         return ResponseEntity.ok(service.createProduct(productRequestDTO));
     }
 
-
 }
+
